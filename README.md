@@ -2,8 +2,8 @@
 
 [![Crates.io](https://img.shields.io/crates/v/blockme.svg)](https://crates.io/crates/blockme)
 [![Docs.rs](https://docs.rs/blockme/badge.svg)](https://docs.rs/blockme)
-[![CI](https://github.com/{[username]}/blockme/workflows/Continuous%20Integration/badge.svg)](https://github.com/{[username]}/blockme/actions)
-[![Coverage Status](https://coveralls.io/repos/github/{[username]}/blockme/badge.svg?branch=master)](https://coveralls.io/github/{[username]}/blockme?branch=master)
+[![CI](https://github.com/pophilpo/blockme/workflows/Continuous%20Integration/badge.svg)](https://github.com/pophilpo/blockme/actions)
+[![Coverage Status](https://coveralls.io/repos/github/pophilpo/blockme/badge.svg?branch=master)](https://coveralls.io/github/pophilpo/blockme?branch=master)
 
 ## Installation
 
