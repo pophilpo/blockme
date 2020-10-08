@@ -4,7 +4,7 @@ version = "0.1.0"
 authors = ["Popov Philipp <philolippo@gmail.com>"]
 edition = "2018"
 description = "blockme mandatory description"
-repository = "https://github.com/{[username]}/blockme"
+repository = "https://github.com/pophilpo/blockme"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
 
