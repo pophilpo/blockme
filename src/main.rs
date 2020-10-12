@@ -1,5 +1,6 @@
 extern crate csv;
 extern crate serde;
+extern crate serde_json;
 
 use reqwest::blocking::Client;
 use data_writer::{DataWriter, Product};
@@ -30,20 +31,18 @@ fn main() {
 
     }
 
-    let mut writer = DataWriter::new("test.csv".to_owned(), "test.json".to_owned());
+    let mut writer = DataWriter::new("test.csv".to_owned(), "test.json".to_owned(), Vec::new());
 
-    let product = Product {
-
-        sku: "100B12RRE".to_string(),
-        title: Some("Vortex Tab 90".to_string()),
-        price: None,
-        main_offer_link: "https://www.google.com".to_string(),
-        main_image_link: "phil.jpg".to_string(),
-        ..Default::default()
-
+    let mut product = Product{
+        sku: "111bb00".to_string(),
+        title: "Vortex Tab 90".to_string(),
+        price: "100 EUR".to_string(),
+        main_offer_link: "https://google.com".to_string(),
+        main_image_link: "vortex.jpg".to_string(),
+        images: Vec::new(),
+        customer_images: Vec::new(),
+        images_360: Vec::new(),
+        desc: "Awesome keyboard.".to_string()
     };
-
-    writer.populate(product);
-
 
 }
