@@ -1,9 +1,9 @@
-
 use std::error::Error;
 use std::fs::File;
 use std::io;
 use std::process;
 use csv::Writer;
+use std::io::prelude::*;
 
 use serde::Serialize;
 
@@ -59,6 +59,8 @@ pub struct DataWriter {
 
 impl DataWriter{
 
+    // TODO: Store filepaths as std::...paths not Strings.
+
 
     pub fn new(csv_filename: String, json_filename: String, storage: Vec<Product>) -> DataWriter {
 
@@ -75,8 +77,11 @@ impl DataWriter{
 
     pub fn write_json(&mut self) {
 
-        let json = serde_json::to_string(&self.storage).unwrap();
-        println!("{}", json);
+        let mut json_file = File::create(&self.json_filename).unwrap();
+        let json_data = serde_json::to_vec(&self.storage).unwrap();
+
+        json_file.write(&json_data).unwrap();
+
     }
 
 

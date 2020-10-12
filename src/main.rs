@@ -43,6 +43,10 @@ fn main() {
         customer_images: Vec::new(),
         images_360: Vec::new(),
         desc: "Awesome keyboard.".to_string()
+
     };
+
+    writer.populate(product);
+    writer.write_json();
 
 }
