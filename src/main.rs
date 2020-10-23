@@ -27,8 +27,8 @@ fn main() {
     let mut writer = DataWriter::new("test.csv".to_owned(), "test.json".to_owned(), Vec::new());
 
     let mut product = Product {
-        sku: "111bb00".to_string(),
-        title: "Vortex Tab 90".to_string(),
+        sku: "".to_string(),
+        title: "".to_string(),
         price: "100 EUR".to_string(),
         main_offer_link: "https://google.com".to_string(),
         main_image_link: "vortex.jpg".to_string(),
@@ -39,4 +39,6 @@ fn main() {
     };
 
     println!("{}", product);
+    writer.populate(product);
+    writer.write_to_json();
 }

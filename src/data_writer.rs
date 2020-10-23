@@ -10,15 +10,29 @@ use std::process;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
+
 pub struct Product {
+    // TODO: Maybe fix the skip serializing repetition?
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub sku: String,
+
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub title: String,
+
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub price: String,
+
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub main_offer_link: String,
+
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub main_image_link: String,
+
     pub images: Vec<String>,
     pub customer_images: Vec<String>,
     pub images_360: Vec<String>,
+
+    #[serde(skip_serializing_if = "String::is_empty")]
     pub desc: String,
 }
 
@@ -81,10 +95,17 @@ impl DataWriter {
         }
     }
 
-    pub fn write_json(&mut self) {
+    pub fn write_to_json(&self) {
         let mut json_file = File::create(&self.json_filename).unwrap();
         let json_data = serde_json::to_vec(&self.storage).unwrap();
 
         json_file.write(&json_data).unwrap();
+    }
+
+    pub fn write_to_csv(&self) {
+        let mut writer = Writer::from_path(&self.csv_filename).unwrap();
+        for product in &self.storage {
+            writer.serialize(product).unwrap();
+        }
     }
 }
