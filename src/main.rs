@@ -2,16 +2,14 @@ extern crate csv;
 extern crate serde;
 extern crate serde_json;
 
-use reqwest::blocking::Client;
 use data_writer::{DataWriter, Product};
+use reqwest::blocking::Client;
 
-mod request;
-mod parser;
 mod data_writer;
+mod parser;
+mod request;
 
 fn main() {
-
-
     let url = "https://thoughtbot.githu.io/rcm/rcm.7.html";
 
     let client = Client::new();
@@ -21,19 +19,14 @@ fn main() {
 
     let h_selector = parser::create_css_selector("h1");
 
-
-    for element in html.select(&h_selector){
-
-
+    for element in html.select(&h_selector) {
         let text = parser::get_element_text(element);
         println!("{}", text);
-
-
     }
 
     let mut writer = DataWriter::new("test.csv".to_owned(), "test.json".to_owned(), Vec::new());
 
-    let mut product = Product{
+    let mut product = Product {
         sku: "111bb00".to_string(),
         title: "Vortex Tab 90".to_string(),
         price: "100 EUR".to_string(),
@@ -42,11 +35,8 @@ fn main() {
         images: Vec::new(),
         customer_images: Vec::new(),
         images_360: Vec::new(),
-        desc: "Awesome keyboard.".to_string()
-
+        desc: "Awesome keyboard.".to_string(),
     };
 
-    writer.populate(product);
-    writer.write_json();
-
+    println!("{}", product);
 }
