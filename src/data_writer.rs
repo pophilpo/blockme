@@ -12,7 +12,6 @@ use serde::{Deserialize, Serialize};
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Product {
     // TODO: Maybe fix the skip serializing repetition?
-    #[serde(skip_serializing_if = "String::is_empty")]
     pub sku: String,
 
     #[serde(skip_serializing_if = "String::is_empty")]
@@ -24,7 +23,6 @@ pub struct Product {
     #[serde(skip_serializing_if = "String::is_empty")]
     pub main_offer_link: String,
 
-    #[serde(skip_serializing_if = "String::is_empty")]
     pub main_image_link: String,
 
     pub images: Vec<String>,
