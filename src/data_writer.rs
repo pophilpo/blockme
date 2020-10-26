@@ -10,7 +10,6 @@ use std::process;
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
-
 pub struct Product {
     // TODO: Maybe fix the skip serializing repetition?
     #[serde(skip_serializing_if = "String::is_empty")]
@@ -105,7 +104,8 @@ impl DataWriter {
     pub fn write_to_csv(&self) {
         let mut writer = Writer::from_path(&self.csv_filename).unwrap();
         for product in &self.storage {
-            writer.serialize(product).unwrap();
+            println!("{}", product);
+            writer.serialize(&product).unwrap();
         }
     }
 }

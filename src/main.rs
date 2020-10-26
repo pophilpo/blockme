@@ -41,4 +41,5 @@ fn main() {
     println!("{}", product);
     writer.populate(product);
     writer.write_to_json();
+    writer.write_to_csv();
 }
