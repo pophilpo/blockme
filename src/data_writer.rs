@@ -7,11 +7,12 @@ use std::io;
 use std::io::prelude::*;
 use std::process;
 
+use serde::ser::{SerializeMap, SerializeSeq, Serializer};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Product {
-    // TODO: Maybe fix the skip serializing repetition?
+    // TODO: Maybe fix the skip_serializing repetition?
     pub sku: String,
 
     #[serde(skip_serializing_if = "String::is_empty")]
@@ -25,9 +26,14 @@ pub struct Product {
 
     pub main_image_link: String,
 
-    pub images: Vec<String>,
-    pub customer_images: Vec<String>,
-    pub images_360: Vec<String>,
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pub images: String,
+
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pub customer_images: String,
+
+    #[serde(skip_serializing_if = "String::is_empty")]
+    pub images_360: String,
 
     #[serde(skip_serializing_if = "String::is_empty")]
     pub desc: String,
@@ -41,9 +47,9 @@ impl Default for Product {
             price: String::from(""),
             main_offer_link: String::from(""),
             main_image_link: String::from(""),
-            images: Vec::new(),
-            customer_images: Vec::new(),
-            images_360: Vec::new(),
+            images: String::from(""),
+            customer_images: String::from(""),
+            images_360: String::from(""),
             desc: String::from(""),
         }
     }
@@ -97,13 +103,5 @@ impl DataWriter {
         let json_data = serde_json::to_vec(&self.storage).unwrap();
 
         json_file.write(&json_data).unwrap();
-    }
-
-    pub fn write_to_csv(&self) {
-        let mut writer = Writer::from_path(&self.csv_filename).unwrap();
-        for product in &self.storage {
-            println!("{}", product);
-            writer.serialize(&product).unwrap();
-        }
     }
 }

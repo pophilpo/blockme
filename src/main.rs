@@ -32,14 +32,11 @@ fn main() {
         price: "100 EUR".to_string(),
         main_offer_link: "https://google.com".to_string(),
         main_image_link: "vortex.jpg".to_string(),
-        images: Vec::new(),
-        customer_images: Vec::new(),
-        images_360: Vec::new(),
+        images: String::from("a.jpg;b.jpg"),
+        customer_images: String::from(""),
+        images_360: String::from(""),
         desc: "Awesome keyboard.".to_string(),
     };
 
     println!("{}", product);
-    writer.populate(product);
-    writer.write_to_json();
-    writer.write_to_csv();
 }
