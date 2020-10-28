@@ -1,3 +1,5 @@
+#![allow(dead_code)]
+#![allow(unused_imports)]
 extern crate csv;
 extern crate serde;
 extern crate serde_json;
@@ -26,9 +28,9 @@ fn main() {
 
     let mut writer = DataWriter::new("test.csv".to_owned(), "test.json".to_owned(), Vec::new());
 
-    let mut product = Product {
-        sku: "".to_string(),
-        title: "".to_string(),
+    let product = Product {
+        sku: "AA0B11cJ".to_string(),
+        title: "Vortex Tab 90".to_string(),
         price: "100 EUR".to_string(),
         main_offer_link: "https://google.com".to_string(),
         main_image_link: "vortex.jpg".to_string(),
@@ -38,5 +40,6 @@ fn main() {
         desc: "Awesome keyboard.".to_string(),
     };
 
-    println!("{}", product);
+    writer.populate(product);
+    writer.write_to_csv();
 }

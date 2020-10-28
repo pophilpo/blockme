@@ -104,4 +104,14 @@ impl DataWriter {
 
         json_file.write(&json_data).unwrap();
     }
+
+    pub fn write_to_csv(&self) {
+        let mut writer = csv::Writer::from_path(&self.csv_filename).unwrap();
+
+        for product in &self.storage {
+            writer.serialize(product).unwrap();
+        }
+
+        writer.flush().unwrap();
+    }
 }
