@@ -5,13 +5,30 @@ extern crate serde;
 extern crate serde_json;
 
 use data_writer::{DataWriter, Product};
-use reqwest::blocking::Client;
+use reqwest::blocking::{Client, Response};
 
+mod crawler;
 mod data_writer;
 mod parser;
-mod request;
+
+fn crawl_rust_header(response: Response) -> Product {
+    let mut product = Product {
+        ..Default::default()
+    };
+
+    let html = parser::response_to_html(response);
+
+    let h_selector = parser::create_css_selector("h1");
+
+    for element in html.select(&h_selector) {
+        let lang_name = parser::get_element_text(element);
+        product.title = lang_name;
+    }
+    product
+}
 
 fn main() {
+    /*
     let url = "https://thoughtbot.githu.io/rcm/rcm.7.html";
 
     let client = Client::new();
@@ -25,6 +42,7 @@ fn main() {
         let text = parser::get_element_text(element);
         println!("{}", text);
     }
+
 
     let mut writer = DataWriter::new("test.csv".to_owned(), "test.json".to_owned(), Vec::new());
 
@@ -42,4 +60,10 @@ fn main() {
 
     writer.populate(product);
     writer.write_to_csv();
+    */
+
+    let crawler = crawler::Crawler::new(vec!["simple".to_string()], crawl_rust_header);
+
+    let product = crawler.crawl_product("https://www.rust-lang.org");
+    println!("{}", product);
 }
